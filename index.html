@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name content="width=device-width, initial-scale=1.0">
+    <title>Boredom Buster</title>
+  <style>
+    body{background;font-family:sans-serif;ex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;overflow:hidden}
+    h1{font-size:3rem;margin-bottom:2rem;background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    button{padding:20px 50px;font-size:1.5rem;cursor:pointer;background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff;border:none;border-radius:50px;font-weight:700;transition:transform 0.2s}
+    button:hover{transform:scale(1.05)}
+    button:active{transform:scale(0.95)}
+    #card{margin-top:50px;padding:40px;background:rgba(255,255,255,0.05);border-radius:24px;text-align:center;display:none;max-width:400px;border:1px solid rgba(255,255,255,0.1)}
+    #text{font-size:1.8rem;margin-bottom:1rem}
+    #desc{color:rgba(255,255,255,0.6);line-height:1.6}
+    </style>
+  </head>
+  <body>
+    <h1>Boredom Buster</h1>
+  <button id="mainBtn">Get Inspiration</button>button>
+  <div id="card">id="text"></div>h2><p id="desc"></p>p></body>div>
+  <script>
+    const ideas=[
+      {text:"Read a book",that book you've been wanting to read."},
+    {text:"Cook a new recipe",desc:"Try making something from scratch today."},
+    {text:"Go for a walk",desc:"Explore a new path in your neighborhood."},
+    {text:"Meditate",desc:"Take 10 minutes to clear your mind."},
+    {text:"Draw something",desc:"Doodle anything that comes to mind."},
+    {text:"Clean up",desc:"Organize a small corner of your room."}
+    ];
+    const btn=document.getElementById('mainBtn'),card=document.getElementById('card'),text=document.getElementById('text'),desc=document.getElementById('desc');
+    btn.addEventListener('click',()=> {
+        const idea=ideas[Math.floor(Math.random()*ideas.length)];
+        text.textContent=idea.text;
+        desc.textContent=idea.desc;
+        card.style.display='block';
+    });
+  </script>
+</html>body>
+</html>desc:"Find 
+  </script><h2 </h1>
+  </body>display:flex;fl:#0a0a1a;color:#fff
+  </style></title>="viewport"
+  </head>

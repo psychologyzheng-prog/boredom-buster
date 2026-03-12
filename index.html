@@ -1,44 +1,332 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name content="width=device-width, initial-scale=1.0">
-    <title>Boredom Buster</title>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>无聊终结者</title>
+  <meta name="description" content="一键消解无聊，发现有趣的事情">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    body{background;font-family:sans-serif;ex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;overflow:hidden}
-    h1{font-size:3rem;margin-bottom:2rem;background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    button{padding:20px 50px;font-size:1.5rem;cursor:pointer;background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff;border:none;border-radius:50px;font-weight:700;transition:transform 0.2s}
-    button:hover{transform:scale(1.05)}
-    button:active{transform:scale(0.95)}
-    #card{margin-top:50px;padding:40px;background:rgba(255,255,255,0.05);border-radius:24px;text-align:center;display:none;max-width:400px;border:1px solid rgba(255,255,255,0.1)}
-    #text{font-size:1.8rem;margin-bottom:1rem}
-    #desc{color:rgba(255,255,255,0.6);line-height:1.6}
-    </style>
-  </head>
-  <body>
-    <h1>Boredom Buster</h1>
-  <button id="mainBtn">Get Inspiration</button>button>
-  <div id="card">id="text"></div>h2><p id="desc"></p>p></body>div>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Noto Sans SC', sans-serif;
+      background: #0a0a1a;
+      overflow: hidden;
+      position: relative;
+    }
+    /* Animated gradient background */
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: 
+        radial-gradient(ellipse at 20% 50%, rgba(120, 60, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(255, 100, 180, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(60, 200, 255, 0.1) 0%, transparent 50%);
+      animation: bgShift 8s ease-in-out infinite alternate;
+    }
+    @keyframes bgShift {
+      0% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.1) rotate(3deg); }
+    }
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      animation: float linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+      padding: 24px;
+    }
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #c084fc, #f472b6, #67e8f9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.05em;
+      text-align: center;
+      animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+    @keyframes titleGlow {
+      0% { filter: brightness(1); }
+      100% { filter: brightness(1.3); }
+    }
+    /* The Button */
+    .btn-wrap {
+      position: relative;
+    }
+    .btn-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 60px;
+      background: linear-gradient(135deg, #a855f7, #ec4899, #06b6d4);
+      opacity: 0.6;
+      filter: blur(15px);
+      transition: opacity 0.4s, filter 0.4s;
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; filter: blur(15px); }
+      50% { opacity: 0.7; filter: blur(20px); }
+    }
+    .btn-wrap:hover::before {
+      opacity: 1;
+      filter: blur(25px);
+    }
+    #mainBtn {
+      position: relative;
+      padding: 20px 56px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: 'Noto Sans SC', sans-serif;
+      color: #fff;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.8), rgba(236, 72, 153, 0.8));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 60px;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+      letter-spacing: 0.1em;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    #mainBtn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.4);
+    }
+    #mainBtn:active {
+      transform: scale(0.95);
+    }
+    #mainBtn.spinning .btn-emoji {
+      display: inline-block;
+      animation: spin 0.5s ease-out;
+    }
+    @keyframes spin {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+    /* Result card */
+    .result-area {
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 800px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 36px 44px;
+      max-width: 420px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px) rotateX(10deg);
+      transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .card.show {
+      opacity: 1;
+      transform: translateY(0) rotateX(0deg);
+    }
+    .card-emoji {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: inline-block;
+      animation: bounce 1s ease-in-out;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-16px); }
+      60% { transform: translateY(-8px); }
+    }
+    .card-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    .card-desc {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.7;
+    }
+    /* Hint text */
+    .hint {
+      position: fixed;
+      bottom: 32px;
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      z-index: 1;
+    }
+    /* Confetti burst */
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 10;
+      animation: confettiFall 1.2s ease-out forwards;
+    }
+    @keyframes confettiFall {
+      0% { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) rotate(720deg) scale(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  <div class="particles" id="particles"></div>
+  <div class="container">
+    <h1>🎲 无聊终结者</h1>
+    <div class="btn-wrap">
+      <button id="mainBtn">
+        <span class="btn-emoji">✨</span> 来点灵感
+      </button>
+    </div>
+    <div class="result-area">
+      <div class="card" id="card">
+        <div class="card-emoji" id="cardEmoji"></div>
+        <div class="card-text" id="cardText"></div>
+        <div class="card-desc" id="cardDesc"></div>
+      </div>
+    </div>
+  </div>
+  <div class="hint">点击按钮 · 发现乐趣</div>
   <script>
-    const ideas=[
-      {text:"Read a book",that book you've been wanting to read."},
-    {text:"Cook a new recipe",desc:"Try making something from scratch today."},
-    {text:"Go for a walk",desc:"Explore a new path in your neighborhood."},
-    {text:"Meditate",desc:"Take 10 minutes to clear your mind."},
-    {text:"Draw something",desc:"Doodle anything that comes to mind."},
-    {text:"Clean up",desc:"Organize a small corner of your room."}
+    // Boredom busters data
+    const ideas = [
+      { emoji: "📚", text: "读一本一直想读的书", desc: "找一本你收藏已久但从未翻开的书，泡杯茶，享受安静的阅读时光。" },
+      { emoji: "🎨", text: "画一幅画", desc: "不需要是大师，随便涂鸦也能带来快乐。拿起笔，画下此刻的心情。" },
+      { emoji: "🍳", text: "尝试做一道新菜", desc: "打开冰箱看看有什么食材，挑战一道从没做过的菜，可能会有惊喜！" },
+      { emoji: "🎵", text: "创建一个歌单", desc: "为特定场景创建专属歌单——雨天歌单、深夜歌单、运动歌单……" },
+      { emoji: "🧘", text: "做十分钟冥想", desc: "闭上眼睛，深呼吸，感受当下。十分钟就能让你焕然一新。" },
+      { emoji: "✍️", text: "写一封信给未来的自己", desc: "写下现在的想法、目标和心情，封存起来，一年后再打开。" },
+      { emoji: "🚶", text: "去一条没走过的路散步", desc: "换一条路线，用不一样的视角看你生活的城市，也许会发现宝藏小店。" },
+      { emoji: "📸", text: "用手机拍10张照片", desc: "给自己一个主题——颜色、光影、街边猫咪，然后用心去发现美。" },
+      { emoji: "🧩", text: "玩一个益智游戏", desc: "数独、拼图、魔方……让大脑活动起来，沉浸在解题的乐趣中。" },
+      { emoji: "🌱", text: "种一棵小植物", desc: "去花市买一株小绿植，亲手照料它。看着它慢慢长大是一件很治愈的事。" },
+      { emoji: "💌", text: "给好朋友发一条消息", desc: "问候一个很久没联系的朋友，说不定你们会聊上一整个下午。" },
+      { emoji: "🎬", text: "看一部高分纪录片", desc: "选一部你感兴趣领域的纪录片，打开新世界的大门。" },
+      { emoji: "🗂️", text: "整理电子相册", desc: "翻翻手机里的旧照片，整理归类，重温那些美好的回忆。" },
+      { emoji: "🎸", text: "学一首新歌的弹奏", desc: "拿起吉他或打开钢琴App，学一首自己喜欢的歌曲。" },
+      { emoji: "🧹", text: "整理清洁一个房间角落", desc: "把那个一直想整理的角落收拾干净，断舍离后会感到神清气爽。" },
+      { emoji: "📝", text: "写日记记录今天", desc: "不需要多长，哪怕三行字。写下今天发生的事、吃了什么、心情如何。" },
+      { emoji: "🎭", text: "模仿一段电影台词", desc: "找一段经典的电影片段，试着模仿里面的台词和表演，自娱自乐！" },
+      { emoji: "🏃", text: "做20分钟运动", desc: "跳绳、俯卧撑或跟着视频跳操，出一身汗，多巴胺会让你开心起来。" },
+      { emoji: "☕", text: "研究手冲咖啡", desc: "学习不同的咖啡豆和冲泡方式，给自己做一杯认真的咖啡。" },
+      { emoji: "🌌", text: "仰望星空或看日落", desc: "走到阳台或户外，安静地看天空的变化，感受宇宙的广阔。" },
+      { emoji: "🎲", text: "学一个纸牌魔术", desc: "在网上找一个简单的纸牌魔术教程，学会后可以向朋友炫耀！" },
+      { emoji: "🗺️", text: "规划一次旅行", desc: "挑一个想去的地方，查攻略、订酒店，光是规划就很让人期待。" },
+      { emoji: "🧶", text: "学一项手工技能", desc: "折纸、编织、手账……找一个教程跟着做，享受手工的专注时光。" },
+      { emoji: "🎤", text: "在家K歌一小时", desc: "打开K歌App，尽情歌唱！不用在意唱得好不好，开心就行。" },
+      { emoji: "🐱", text: "看看可爱动物视频", desc: "给自己15分钟看猫咪和狗子视频的时间，快乐就是这么简单。" },
+      { emoji: "🪴", text: "重新布置一下房间", desc: "挪一下家具，换个摆设方式，换一种心情，新鲜感立马拉满。" },
+      { emoji: "📖", text: "学几个有趣的冷知识", desc: "去搜索一些有意思的冷知识，下次聊天时可以拿出来惊艳众人。" },
+      { emoji: "🎯", text: "给自己定一个30天挑战", desc: "比如连续30天早起、每天拍一张照片、每天写100字……" },
+      { emoji: "🖥️", text: "学一个新软件或技能", desc: "一直想学的Photoshop、视频剪辑或编程，现在就是最好的开始时间。" },
+      { emoji: "🍿", text: "开一场电影马拉松", desc: "选一个系列电影，准备好零食和饮料，窝在沙发里享受电影之夜。" },
     ];
-    const btn=document.getElementById('mainBtn'),card=document.getElementById('card'),text=document.getElementById('text'),desc=document.getElementById('desc');
-    btn.addEventListener('click',()=> {
-        const idea=ideas[Math.floor(Math.random()*ideas.length)];
-        text.textContent=idea.text;
-        desc.textContent=idea.desc;
-        card.style.display='block';
+    let lastIndex = -1;
+    // Create floating particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (6 + Math.random() * 10) + 's';
+      p.style.animationDelay = (Math.random() * 8) + 's';
+      p.style.width = p.style.height = (2 + Math.random() * 4) + 'px';
+      particlesContainer.appendChild(p);
+    }
+    // Confetti burst
+    function confettiBurst(x, y) {
+      const colors = ['#a855f7', '#ec4899', '#06b6d4', '#f59e0b', '#22c55e', '#f472b6'];
+      for (let i = 0; i < 18; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.left = x + 'px';
+        c.style.top = y + 'px';
+        c.style.background = colors[Math.floor(Math.random() * colors.length)];
+        const angle = (Math.PI * 2 / 18) * i + (Math.random() - 0.5);
+        const dist = 60 + Math.random() * 120;
+        c.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+        c.style.setProperty('--ty', Math.sin(angle) * dist - 40 + 'px');
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 1200);
+      }
+    }
+    // Main button logic
+    const btn = document.getElementById('mainBtn');
+    const card = document.getElementById('card');
+    const cardEmoji = document.getElementById('cardEmoji');
+    const cardText = document.getElementById('cardText');
+    const cardDesc = document.getElementById('cardDesc');
+    btn.addEventListener('click', function(e) {
+      // Pick a random idea (avoid repeat)
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * ideas.length);
+      } while (idx === lastIndex && ideas.length > 1);
+      lastIndex = idx;
+      const idea = ideas[idx];
+      // Button spin animation
+      btn.classList.remove('spinning');
+      void btn.offsetWidth; // reflow
+      btn.classList.add('spinning');
+      // Confetti
+      const rect = btn.getBoundingClientRect();
+      confettiBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      // Hide card, then show with new content
+      card.classList.remove('show');
+      setTimeout(() => {
+        cardEmoji.textContent = idea.emoji;
+        cardText.textContent = idea.text;
+        cardDesc.textContent = idea.desc;
+        // Re-trigger bounce animation
+        cardEmoji.style.animation = 'none';
+        void cardEmoji.offsetWidth;
+        cardEmoji.style.animation = '';
+        card.classList.add('show');
+      }, 300);
     });
   </script>
-</html>body>
-</html>desc:"Find 
-  </script><h2 </h1>
-  </body>display:flex;fl:#0a0a1a;color:#fff
-  </style></title>="viewport"
-  </head>
+</body>
+</html>

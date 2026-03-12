@@ -1,7 +1,1 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title></title>
-  </head>
+<!DOCTYPE html><html="en"><head><meta charset="UTF-8"><title>Boredom Buster</title><style>body{background:#0a0a1a;color:#fff;font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0}button{padding:20px 40px;font-size:1.5rem;cursor:pointer;background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff;border:none;border-radius:50px;font-weight:700}#card{margin-top:50px;padding:30px;background:rgba(255,255,255,0.1);border-radius:20px;text-align:center;display:none}</style></head><body><h1>Boredom Buster</h1><button id="mainBtn">Get Inspiration</button>button><div id="card"><h2 id="text"></h2><p id="desc"></p>p></div>div><script>const ideas=[{text:"Read a book",desc:"Find something interesting to read."},{text:"Cook something",desc:"Try a new recipe today."},{text:"Go for a walk",desc:"Explore a new path in your neighborhood."}];const btn=document.getElementById('mainBtn'),card=document.getElementById('card'),text=document.getElementById('text'),desc=document.getElementById('desc');btn.addEventListener('click',()=>{const idea=ideas[Math.floor(Math.random()*ideas.length)];text.textContent=idea.text;desc.textContent=idea.desc;card.style.display='block'});</script></body></html>html></script></h1></body></style></title></head> lang
